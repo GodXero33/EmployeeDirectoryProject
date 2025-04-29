@@ -18,7 +18,9 @@ export class LoginComponent {
   @ViewChild('usernameField') usernameField!: ElementRef;
   @ViewChild('passwordField') passwordField!: ElementRef;
 
-  constructor (private apiService: ApiService, private router: Router, private authService: AuthService) {}
+  constructor (private apiService: ApiService, private router: Router, private authService: AuthService) {
+    if (this.authService.isAuthenticated()) this.router.navigate(['/employee']);
+  }
 
   public login (): void {
     if (!this.usernameField || !this.passwordField) return;

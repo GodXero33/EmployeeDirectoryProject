@@ -1,0 +1,53 @@
+#main-cont {
+	--sidebar-width: 200px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #353545;
+	display: flex;
+}
+
+#side-bar {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: var(--sidebar-width);
+	height: 100%;
+	background-color: #363636;
+	border-right: 2px solid #ffffff;
+}
+
+#side-bar .btn {
+	position: relative;
+	margin-top: 0.2rem;
+	padding: 0.5rem;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: fit-content;
+	color: #ffffff;
+	font-size: 0.9rem;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	border-block: 2px solid #ffffff;
+	border-radius: 0;
+}
+
+#side-bar .btn:not(.active):hover {
+	background-color: #454545;
+}
+
+#side-bar .btn.active {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+#content-cont {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: auto;
+	height: 100%;
+	flex-grow: 1;
+}

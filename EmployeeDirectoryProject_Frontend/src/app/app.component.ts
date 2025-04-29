@@ -10,16 +10,4 @@ import { AuthService } from './service/auth.service';
 })
 export class AppComponent {
   title = 'EmployeeDirectoryProject_Frontend';
-
-  constructor (private authService: AuthService, private router: Router) {
-     this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        if (this.authService.isAuthenticated()) {
-          this.router.navigate(['/employee']);
-        } else {
-          this.router.navigate(['/login']);
-        }
-      }
-    });
-  }
 }

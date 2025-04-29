@@ -1,1 +1,11 @@
-<p>employee works!</p>
+<div id="main-cont">
+	<div id="side-bar">
+		<div class="btn" [class.active]="activeContent=='add' || activeContent == ''" (click)="navigateTo('add')">Add Employee</div>
+		<div class="btn" [class.active]="activeContent=='update'" (click)="navigateTo('update')">Update Employee</div>
+		<div class="btn" [class.active]="activeContent=='delete'" (click)="navigateTo('delete')">Delete Employee</div>
+		<div class="btn" [class.active]="activeContent=='search'" (click)="navigateTo('search')">Search Employee</div>
+	</div>
+	<div id="content-cont">
+		<router-outlet />
+	</div>
+</div>
