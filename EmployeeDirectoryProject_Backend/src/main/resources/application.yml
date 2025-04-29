@@ -10,30 +10,30 @@ spring:
       enabled: ALWAYS
 
   db:
-    username: root
-    password: 1234
-    database: employee_directory_project
+    username: xxx
+    password: xxx
+    database: xxx
 
   security:
     user:
-      name: user
-      password: "$2a$10$s04/G4rv/wGPZDOKELQRAuIC4ayt286sQ7TWnEpLtVqsLGmDmC.ES"
+      name: xxx
+      password: xxx  # bcrypt hash
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: shansathish38@gmail.com
-    password: mvnhryydawdlcfzi
+    username: xxx@gmail.com
+    password: xxx
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
-  from: shansathish38@gmail.com
+  from: xxx@gmail.com
 
 jwt:
-  secret: ehz624IMtIlkJW-9nCNWXRUJnMroiru9XztYuLZpMU4=
+  secret: xxx
   lifetime: 10800000
   key_gen:
     enable: false
