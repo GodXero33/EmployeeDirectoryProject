@@ -13,6 +13,8 @@ export class SearchEmployeeByIdComponent {
   public name: string = '';
   public email: string = '';
   public department: string = '';
+  public createdAt: string = '';
+  public updatedAt: string = '';
   public searched: boolean = false;
 
   constructor (private apiService: ApiService) {}
@@ -24,6 +26,8 @@ export class SearchEmployeeByIdComponent {
         this.name = res.name;
         this.email = res.email;
         this.department = res.department[0].toUpperCase() + res.department.substring(1).toLowerCase();
+        this.createdAt = res.createdAt;
+        this.updatedAt = res.updatedAt;
       },
       error: (error) => {
         console.error(error);

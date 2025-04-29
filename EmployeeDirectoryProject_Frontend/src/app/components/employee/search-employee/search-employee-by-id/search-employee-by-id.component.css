@@ -1,16 +1,17 @@
 #main-cont {
-	position: relative;
+	position: absolute;
 	margin-top: 2rem;
 	padding: 2rem;
 	top: 0;
 	left: 50%;
 	width: 100%;
 	max-width: 550px;
-	height: fit-content;
+	height: 100%;
 	transform: translateX(-50%);
 	background-color: #ffffff;
 	border-radius: 8px;
 	box-shadow: 0 0 5px #00000077;
+	overflow-y: auto;
 }
 
 h1 {

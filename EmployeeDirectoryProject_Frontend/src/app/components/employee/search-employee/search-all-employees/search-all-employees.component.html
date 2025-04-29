@@ -1,1 +1,37 @@
-<p>search-all-employees works!</p>
+<div id="main-cont">
+	<div id="table-cont">
+		<table class="table table-striped table-dark">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Department</th>
+					<th scope="col">Created At</th>
+					<th scope="col">Updated At</th>
+				</tr>
+			</thead>
+			<tbody>
+				@for (employee of displayEmployees; track $index) {
+					<tr>
+						<td>{{ employee.id }}</td>
+						<td [title]="employee.name">{{ employee.name }}</td>
+						<td [title]="employee.email">{{ employee.email }}</td>
+						<td>{{ employee.department }}</td>
+						<td>{{ employee.createdAt }}</td>
+						<td>{{ employee.updatedAt }}</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+	<div id="controls-cont">
+		<div>
+			<button class="btn btn-primary" (click)="prevPage()" [disabled]="currentPageIndex == 0">Previous</button>
+			<button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPageIndex == maximumPages">Next</button>
+		</div>
+		<div>
+			<button class="btn btn-primary" (click)="refresh()">Refresh</button>
+		</div>
+	</div>
+</div>

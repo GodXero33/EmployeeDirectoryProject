@@ -1,0 +1,78 @@
+#main-cont {
+	position: absolute;
+	padding: 1rem;
+	top: 0;
+	left: 50%;
+	width: 100%;
+	max-width: 900px;
+	height: 100%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+}
+
+#table-cont {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	flex-grow: 1;
+	scrollbar-width: thin;
+	scrollbar-color: #fff transparent;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+#table-cont table {
+	height: auto;
+}
+
+#table-cont table td:nth-child(6n + 1) {
+	min-width: 50px;
+	text-align: center;
+}
+
+#table-cont table td:nth-child(6n + 2) {
+	min-width: 200px;
+}
+
+#table-cont table tr:has( th) {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
+
+#table-cont table th, #table-cont table td {
+	padding-inline: 0.8rem;
+	min-width: 100px;
+	max-width: 200px;
+	width: max-content;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	text-align: left;
+}
+
+#controls-cont {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: fit-content;
+	display: flex;
+}
+
+#controls-cont > div {
+	display: flex;
+	width: 50%;
+	gap: 0.5rem;
+}
+
+#controls-cont > div:last-child {
+	justify-content: flex-end;
+}
+
+button {
+	max-width: 150px;
+	min-width: 100px;
+}
