@@ -10,17 +10,14 @@ import { Employee } from '../../../model/employee.model';
   styleUrl: './add-employee.component.css'
 })
 export class AddEmployeeComponent {
-  public name: string = 'Sathish Shan';
-  public email: string = 'shansathish';
+  public name: string = '';
+  public email: string = '';
   public department: string = 'HR';
 
   @ViewChild('nameField') nameField!: ElementRef;
   @ViewChild('emailField') emailField!: ElementRef;
 
-  constructor (private apiService: ApiService) {
-    // this.email = this.email + Math.floor(Math.random() * 10e5) + '@gmail.com';
-    this.email = this.email + '33@gmail.com';
-  }
+  constructor (private apiService: ApiService) {}
 
   public addEmployee (): void {
     if (!this.nameField || !this.emailField) return;

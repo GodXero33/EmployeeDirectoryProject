@@ -12,8 +12,8 @@ import { AuthService } from '../../service/auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  public username: string  = 'god_xero';
-  public password: string  = '1234';
+  public username: string  = '';
+  public password: string  = '';
 
   @ViewChild('usernameField') usernameField!: ElementRef;
   @ViewChild('passwordField') passwordField!: ElementRef;
