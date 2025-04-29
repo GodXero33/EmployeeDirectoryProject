@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Response<Boolean> isEmailExist (String email) {
-		return this.employeeRepository.isEmailExist(email);
+	public Response<Boolean> isEmailExist (String email, Long employeeId) {
+		return this.employeeRepository.isEmailExist(email, employeeId);
 	}
 }

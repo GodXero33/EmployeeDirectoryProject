@@ -46,7 +46,30 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 	@Override
 	public Response<EmployeeEntity> update (EmployeeEntity entity) {
-		return null;
+		try {
+			final String now = DateTimeUtil.getCurrentDateTime();
+			final boolean isUpdated = (Integer) this.crudUtil.execute(
+				"""
+					UPDATE employee
+					SET name = ?, email = ?, department = ?, updated_at = ?
+					WHERE is_deleted = FALSE AND id = ?
+					""",
+				entity.getName(),
+				entity.getEmail(),
+				entity.getDepartment().name(),
+				now,
+				entity.getId()
+			) != 0;
+
+			if (isUpdated) entity.setUpdatedAt(DateTimeUtil.parseDateTime(now));
+
+			return isUpdated ?
+				new Response<>(entity, ResponseType.UPDATED) :
+				new Response<>(null, ResponseType.NOT_UPDATED);
+		} catch (SQLException exception) {
+			this.logger.error(exception.getMessage());
+			return new Response<>(null, ResponseType.SERVER_ERROR);
+		}
 	}
 
 	@Override
@@ -83,9 +106,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	}
 
 	@Override
-	public Response<Boolean> isEmailExist (String email) {
+	public Response<Boolean> isEmailExist (String email, Long employeeId) {
 		try {
-			return ((ResultSet) this.crudUtil.execute("SELECT 1 FROM employee WHERE email = ?", email)).next() ?
+			if (employeeId == null) {
+				return ((ResultSet) this.crudUtil.execute("SELECT 1 FROM employee WHERE email = ?", email)).next() ?
+					new Response<>(true, ResponseType.FOUND) :
+					new Response<>(false, ResponseType.NOT_FOUND);
+			}
+
+			return ((ResultSet) this.crudUtil.execute("SELECT 1 FROM employee WHERE id != ? AND email = ?", employeeId, email)).next() ?
 				new Response<>(true, ResponseType.FOUND) :
 				new Response<>(false, ResponseType.NOT_FOUND);
 		} catch (SQLException exception) {

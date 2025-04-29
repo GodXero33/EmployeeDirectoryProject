@@ -5,5 +5,5 @@ import dev.icet.edp.service.SuperService;
 import dev.icet.edp.util.Response;
 
 public interface EmployeeService extends SuperService<Employee> {
-	Response<Boolean> isEmailExist (String email);
+	Response<Boolean> isEmailExist (String email, Long employeeId);
 }

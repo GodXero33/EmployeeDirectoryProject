@@ -35,12 +35,12 @@ public class EmployeeController {
 		};
 	}
 
-	@PostMapping("")
+	@PostMapping()
 	public CustomHttpResponse<Employee> add (@Valid @RequestBody Employee employee, BindingResult result) {
 		if (result.hasErrors()) return this.controllerResponseUtil.getInvalidDetailsResponse(result);
 		if (employee.getId() != null) return this.controllerResponseUtil.getInvalidDetailsResponse("New employee can't have a ID");
 
-		final Response<Boolean> emailExistResponse = this.employeeService.isEmailExist(employee.getEmail());
+		final Response<Boolean> emailExistResponse = this.employeeService.isEmailExist(employee.getEmail(), null);
 
 		if (emailExistResponse.getStatus() == ResponseType.SERVER_ERROR) return this.controllerResponseUtil.getServerErrorResponse();
 		if (emailExistResponse.getStatus() == ResponseType.FOUND) return new CustomHttpResponse<>(HttpStatus.CONFLICT, null, "The given email address is already in the system. Can't use again.");
@@ -50,5 +50,24 @@ public class EmployeeController {
 		return response.getStatus() == ResponseType.CREATED ?
 			new CustomHttpResponse<>(HttpStatus.OK, response.getData(), "Employee created") :
 			this.controllerResponseUtil.getServerErrorResponse();
+	}
+
+	@PutMapping()
+	public CustomHttpResponse<Employee> update (@Valid @RequestBody Employee employee, BindingResult result) {
+		if (result.hasErrors()) return this.controllerResponseUtil.getInvalidDetailsResponse(result);
+		if (employee.getId() == null || employee.getId() <= 0) return this.controllerResponseUtil.getInvalidDetailsResponse("Employee id can't be null and must be non zero positive integer");
+
+		final Response<Boolean> emailExistResponse = this.employeeService.isEmailExist(employee.getEmail(), employee.getId());
+
+		if (emailExistResponse.getStatus() == ResponseType.SERVER_ERROR) return this.controllerResponseUtil.getServerErrorResponse();
+		if (emailExistResponse.getStatus() == ResponseType.FOUND) return new CustomHttpResponse<>(HttpStatus.CONFLICT, null, "The given email address is already in the system. Can't use again.");
+
+		final Response<Employee> response = this.employeeService.update(employee);
+
+		return switch (response.getStatus()) {
+			case UPDATED -> new CustomHttpResponse<>(HttpStatus.OK, response.getData(), "Employee updated");
+			case SERVER_ERROR -> this.controllerResponseUtil.getServerErrorResponse();
+			default -> new CustomHttpResponse<>(HttpStatus.NOT_MODIFIED, null, "Employee not updated");
+		};
 	}
 }
