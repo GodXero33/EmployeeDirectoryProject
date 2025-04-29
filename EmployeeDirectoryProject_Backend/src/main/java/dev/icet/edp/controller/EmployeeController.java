@@ -13,6 +13,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +35,15 @@ public class EmployeeController {
 			case SERVER_ERROR -> this.controllerResponseUtil.getServerErrorResponse();
 			default -> new CustomHttpResponse<>(HttpStatus.NOT_FOUND, null, "Employee not found");
 		};
+	}
+
+	@GetMapping("/all")
+	public CustomHttpResponse<List<Employee>> getAll () {
+		final Response<List<Employee>> response = this.employeeService.getAll();
+
+		return response.getStatus() == ResponseType.FOUND ?
+			new CustomHttpResponse<>(HttpStatus.OK, response.getData(), "All employees found") :
+			this.controllerResponseUtil.getServerErrorResponse();
 	}
 
 	@PostMapping()
@@ -68,6 +79,19 @@ public class EmployeeController {
 			case UPDATED -> new CustomHttpResponse<>(HttpStatus.OK, response.getData(), "Employee updated");
 			case SERVER_ERROR -> this.controllerResponseUtil.getServerErrorResponse();
 			default -> new CustomHttpResponse<>(HttpStatus.NOT_MODIFIED, null, "Employee not updated");
+		};
+	}
+
+	@DeleteMapping("/{id}")
+	public CustomHttpResponse<Object> delete (@PathVariable Long id) {
+		if (id <= 0) return this.controllerResponseUtil.getInvalidDetailsResponse("Id can't be negative");
+
+		final Response<Object> response = this.employeeService.delete(id);
+
+		return switch (response.getStatus()) {
+			case DELETED -> new CustomHttpResponse<>(HttpStatus.OK, null, "Employee deleted");
+			case SERVER_ERROR -> this.controllerResponseUtil.getServerErrorResponse();
+			default -> new CustomHttpResponse<>(HttpStatus.NOT_MODIFIED, null, "Employee delete failed");
 		};
 	}
 }
