@@ -6,6 +6,8 @@ import { AddEmployeeComponent } from './components/employee/add-employee/add-emp
 import { UpdateEmployeeComponent } from './components/employee/update-employee/update-employee.component';
 import { DeleteEmployeeComponent } from './components/employee/delete-employee/delete-employee.component';
 import { SearchEmployeeComponent } from './components/employee/search-employee/search-employee.component';
+import { SearchEmployeeByIdComponent } from './components/employee/search-employee/search-employee-by-id/search-employee-by-id.component';
+import { SearchAllEmployeesComponent } from './components/employee/search-employee/search-all-employees/search-all-employees.component';
 
 export const routes: Routes = [
 	{
@@ -45,7 +47,24 @@ export const routes: Routes = [
 			{
 				path: 'search',
 				component: SearchEmployeeComponent,
-				canActivate: [AuthGuard]
+				canActivate: [AuthGuard],
+				children: [
+					{
+						path: '',
+						component: SearchEmployeeByIdComponent,
+						canActivate: [AuthGuard]
+					},
+					{
+						path: 'by-id',
+						component: SearchEmployeeByIdComponent,
+						canActivate: [AuthGuard]
+					},
+					{
+						path: 'all',
+						component: SearchAllEmployeesComponent,
+						canActivate: [AuthGuard]
+					}
+				]
 			}
 		]
 	}

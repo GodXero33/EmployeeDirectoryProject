@@ -1,1 +1,9 @@
-<p>search-employee works!</p>
+<div id="main-cont">
+	<div id="top-bar">
+		<div class="btn" [class.active]="activeContent=='' || activeContent=='by-id'" (click)="navigateTo('by-id')">Search employee By ID</div>
+		<div class="btn" [class.active]="activeContent=='all'" (click)="navigateTo('all')">All Employees</div>
+	</div>
+	<div id="content-cont">
+		<router-outlet />
+	</div>
+</div>
