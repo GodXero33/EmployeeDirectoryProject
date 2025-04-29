@@ -7,9 +7,13 @@ import dev.icet.edp.service.SuperServiceHandler;
 import dev.icet.edp.service.custom.EmployeeService;
 import dev.icet.edp.util.Response;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Primary
 public class EmployeeServiceImpl implements EmployeeService {
 	private final SuperServiceHandler<Employee, EmployeeEntity> serviceHandler;
 
