@@ -19,7 +19,7 @@ public class Employee {
 	@Pattern(regexp = "^[A-Za-z ]{1,100}$", message = "Invalid username: Name must be 1–100 characters long and contain only letters and spaces.")
 	private String name;
 
-	@Email(message = "Invalid email address")
+	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Please enter a valid email address (e.g., user@example.com).")
 	private String email;
 
 	private EmployeeDepartment department;

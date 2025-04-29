@@ -6,6 +6,7 @@ import dev.icet.edp.util.ControllerResponseUtil;
 import dev.icet.edp.util.CustomHttpResponse;
 import dev.icet.edp.util.Response;
 import dev.icet.edp.util.enums.ResponseType;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,9 +36,14 @@ public class EmployeeController {
 	}
 
 	@PostMapping("")
-	public CustomHttpResponse<Employee> add (@RequestBody Employee employee, BindingResult result) {
+	public CustomHttpResponse<Employee> add (@Valid @RequestBody Employee employee, BindingResult result) {
 		if (result.hasErrors()) return this.controllerResponseUtil.getInvalidDetailsResponse(result);
 		if (employee.getId() != null) return this.controllerResponseUtil.getInvalidDetailsResponse("New employee can't have a ID");
+
+		final Response<Boolean> emailExistResponse = this.employeeService.isEmailExist(employee.getEmail());
+
+		if (emailExistResponse.getStatus() == ResponseType.SERVER_ERROR) return this.controllerResponseUtil.getServerErrorResponse();
+		if (emailExistResponse.getStatus() == ResponseType.FOUND) return new CustomHttpResponse<>(HttpStatus.CONFLICT, null, "The given email address is already in the system. Can't use again.");
 
 		final Response<Employee> response = this.employeeService.add(employee);
 

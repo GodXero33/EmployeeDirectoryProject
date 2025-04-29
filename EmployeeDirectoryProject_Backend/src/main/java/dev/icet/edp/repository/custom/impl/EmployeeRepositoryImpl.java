@@ -81,4 +81,16 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	public Response<List<EmployeeEntity>> getAll () {
 		return null;
 	}
+
+	@Override
+	public Response<Boolean> isEmailExist (String email) {
+		try {
+			return ((ResultSet) this.crudUtil.execute("SELECT 1 FROM employee WHERE email = ?", email)).next() ?
+				new Response<>(true, ResponseType.FOUND) :
+				new Response<>(false, ResponseType.NOT_FOUND);
+		} catch (SQLException exception) {
+			this.logger.error(exception.getMessage());
+			return new Response<>(false, ResponseType.SERVER_ERROR);
+		}
+	}
 }

@@ -16,9 +16,11 @@ import java.util.List;
 @Primary
 public class EmployeeServiceImpl implements EmployeeService {
 	private final SuperServiceHandler<Employee, EmployeeEntity> serviceHandler;
+	private final EmployeeRepository employeeRepository;
 
 	public EmployeeServiceImpl (EmployeeRepository employeeRepository, ModelMapper mapper) {
 		this.serviceHandler = new SuperServiceHandler<>(employeeRepository, mapper, Employee.class, EmployeeEntity.class);
+		this.employeeRepository = employeeRepository;
 	}
 
 	@Override
@@ -44,5 +46,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Response<Object> delete (Long id) {
 		return this.serviceHandler.delete(id);
+	}
+
+	@Override
+	public Response<Boolean> isEmailExist (String email) {
+		return this.employeeRepository.isEmailExist(email);
 	}
 }
