@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  jackson:
+    default-property-inclusion: non_null
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  db:
+    username: root
+    password: 1234
+    database: employee_directory_project
+
+  security:
+    user:
+      name: user
+      password: "$2a$10$s04/G4rv/wGPZDOKELQRAuIC4ayt286sQ7TWnEpLtVqsLGmDmC.ES"
+
+jwt:
+  secret: ehz624IMtIlkJW-9nCNWXRUJnMroiru9XztYuLZpMU4=
+  lifetime: 10800000
+  key_gen:
+    enable: false
