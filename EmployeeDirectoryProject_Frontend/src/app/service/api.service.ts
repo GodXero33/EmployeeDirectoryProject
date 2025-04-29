@@ -47,7 +47,7 @@ export class ApiService {
 		} else if (error.status === 401) {
 			errorMessage = 'Unauthorized: Please log in again';
 		} else {
-			errorMessage = `Error ${error.status}: ${error.error?.message}`;
+			errorMessage = `${error.status}: ${error.error?.message}`;
 		}
 
 		return throwError(() => new Error(errorMessage));
