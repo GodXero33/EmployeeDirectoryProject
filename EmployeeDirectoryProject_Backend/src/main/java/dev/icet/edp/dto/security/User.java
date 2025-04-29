@@ -15,8 +15,7 @@ public class User {
 	@Min(value = 1, message = "Employee id can't be zero or negative")
 	private Long employeeId;
 
-	@NotBlank(message = "Username can't be empty")
-	@Pattern(regexp = "^[A-Za-z ]{1,100}$", message = "Invalid username: Name must be 1–100 characters long and contain only letters and spaces.")
+	@Pattern(regexp = "^[a-zA-Z0-9_]{3,15}$", message = "Invalid username: Username must be 3–15 characters long and can only contain letters, numbers, and underscores.")
 	private String username;
 
 	private String password;

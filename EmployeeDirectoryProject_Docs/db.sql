@@ -14,7 +14,6 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE `user` (
-	id BIGINT AUTO_INCREMENT,
 	employee_id BIGINT NOT NULL,
 	username VARCHAR(15) NOT NULL,
 	password VARCHAR(255) NOT NULL,
@@ -24,7 +23,7 @@ CREATE TABLE `user` (
 	deleted_at DATETIME,
 	is_deleted BOOLEAN DEFAULT FALSE,
 	role ENUM('ADMIN') NOT NULL,
-	PRIMARY KEY (id),
+	PRIMARY KEY (employee_id),
 	FOREIGN KEY (employee_id) REFERENCES employee(id)
 );
 
@@ -46,8 +45,7 @@ VALUES
 (2, 'sahan_p', '$2a$12$m8klimGVexhjMpucFB0UFOxnnaiWXFf26BH9rk/ZVaxa/RwblMAva', 'ADMIN'),
 (3, 'nimesha_f', '$2a$12$m8klimGVexhjMpucFB0UFOxnnaiWXFf26BH9rk/ZVaxa/RwblMAva', 'ADMIN'),
 (4, 'tharindu_s', '$2a$12$m8klimGVexhjMpucFB0UFOxnnaiWXFf26BH9rk/ZVaxa/RwblMAva', 'ADMIN'),
-(5, 'ishara_j', '$2a$12$m8klimGVexhjMpucFB0UFOxnnaiWXFf26BH9rk/ZVaxa/RwblMAva', 'ADMIN'),
-(6, 'dilani_w', '$2a$12$m8klimGVexhjMpucFB0UFOxnnaiWXFf26BH9rk/ZVaxa/RwblMAva', 'ADMIN');
+(5, 'ishara_j', '$2a$12$m8klimGVexhjMpucFB0UFOxnnaiWXFf26BH9rk/ZVaxa/RwblMAva', 'ADMIN');
 
 SELECT * FROM employee;
 SELECT * FROM `user`;
