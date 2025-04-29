@@ -2,6 +2,7 @@ package dev.icet.edp.controller;
 
 import dev.icet.edp.dto.Employee;
 import dev.icet.edp.service.custom.EmployeeService;
+import dev.icet.edp.service.custom.MailService;
 import dev.icet.edp.util.ControllerResponseUtil;
 import dev.icet.edp.util.CustomHttpResponse;
 import dev.icet.edp.util.Response;
@@ -22,6 +23,7 @@ import java.util.List;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class EmployeeController {
 	private final EmployeeService employeeService;
+	private final MailService mailService;
 	private final ControllerResponseUtil controllerResponseUtil;
 
 	@GetMapping("/{id}")
@@ -57,6 +59,8 @@ public class EmployeeController {
 		if (emailExistResponse.getStatus() == ResponseType.FOUND) return new CustomHttpResponse<>(HttpStatus.CONFLICT, null, "The given email address is already in the system. Can't use again.");
 
 		final Response<Employee> response = this.employeeService.add(employee);
+
+		if (response.getStatus() == ResponseType.CREATED) this.mailService.sendEmployeeAddMail(response.getData());
 
 		return response.getStatus() == ResponseType.CREATED ?
 			new CustomHttpResponse<>(HttpStatus.OK, response.getData(), "Employee created") :

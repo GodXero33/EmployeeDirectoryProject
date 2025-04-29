@@ -19,6 +19,19 @@ spring:
       name: user
       password: "$2a$10$s04/G4rv/wGPZDOKELQRAuIC4ayt286sQ7TWnEpLtVqsLGmDmC.ES"
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: shansathish38@gmail.com
+    password: mvnhryydawdlcfzi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  from: shansathish38@gmail.com
+
 jwt:
   secret: ehz624IMtIlkJW-9nCNWXRUJnMroiru9XztYuLZpMU4=
   lifetime: 10800000
